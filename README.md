@@ -44,10 +44,10 @@
 
 ```powershell
 python -m pip install --upgrade pip
-python -m pip install pygame pillow websockets
+python -m pip install pygame
 ```
 
-2. 로컬에서 직접 실행(스트리밍 미사용)
+2. 로컬에서 직접 실행
 
 ```powershell
 python game.py
