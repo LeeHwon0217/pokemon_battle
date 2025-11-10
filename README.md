@@ -47,17 +47,7 @@ python -m pip install --upgrade pip
 python -m pip install pygame pillow websockets
 ```
 
-2. 스트리밍(브라우저에서 플레이) 방식
-
-- `ws_server.py`를 실행하면 Pygame을 백그라운드로 띄우고 웹소켓으로 캡쳐 프레임을 전송합니다. 프로젝트 루트에서:
-
-```powershell
-python ws_server.py
-```
-
-- 별도의 웹서버로 `index.html`을 서빙한 뒤(예: `python -m http.server 8000`) 브라우저에서 `http://localhost:8000/index.html`을 열어 플레이하세요.
-
-3. 로컬에서 직접 실행(스트리밍 미사용)
+2. 로컬에서 직접 실행(스트리밍 미사용)
 
 ```powershell
 python game.py
