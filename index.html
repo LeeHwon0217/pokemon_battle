@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mini Pokemon — Launcher</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: #f4f7fb;
+        color: #222;
+        margin: 0;
+      }
+      .wrap {
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 28px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 6px 22px rgba(16, 24, 40, 0.08);
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+      p.lead {
+        color: #555;
+      }
+      pre.cmd {
+        background: #0b1220;
+        color: #cfe8ff;
+        padding: 12px;
+        border-radius: 6px;
+        overflow: auto;
+      }
+      .row {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .box {
+        flex: 1;
+      }
+      .screenshot {
+        max-width: 100%;
+        border: 1px solid #eee;
+        background: #fff;
+        padding: 6px;
+        border-radius: 6px;
+      }
+      .note {
+        font-size: 13px;
+        color: #666;
+      }
+      .btn {
+        display: inline-block;
+        background: #2b8cff;
+        color: #fff;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+      }
+      footer {
+        margin-top: 18px;
+        color: #999;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Mini Pokemon — Launcher</h1>
+      <p class="lead">
+        이 페이지는 리포지토리의 간단한 안내 및 로컬 실행 방법을 제공합니다.
+        게임(파이썬/pygame)은 브라우저에서 바로 실행되지 않으므로, 아래 지침에
+        따라 로컬에서 실행하거나 GitHub Pages로 정적 소개 페이지를 배포하세요.
+      </p>
+
+      <div class="row">
+        <div class="box">
+          <h3>로컬에서 플레이 (권장)</h3>
+          <ol>
+            <li>Python 3.8+가 설치되어 있는지 확인하세요.</li>
+            <li>터미널(Windows PowerShell)에서 의존성 설치:</li>
+          </ol>
+          <pre class="cmd">pip install pygame</pre>
+          <p class="note">(가상환경을 사용하는 것을 권장합니다)</p>
+          <p>게임 실행:</p>
+          <pre class="cmd">python .\game.py</pre>
+          <p class="note">
+            게임은 데스크탑에서 Pygame으로 실행됩니다. 브라우저에서 바로
+            플레이하려면 WASM으로 변환하는 추가 작업이 필요합니다.
+          </p>
+
+          <h3>리포지토리를 GitHub에 올리고 Pages로 배포</h3>
+          <p>
+            index.html을 리포지토리 루트에 커밋하면 GitHub Pages에서 정적 소개
+            페이지로 사용할 수 있습니다. (게임 실행 파일 자체는 브라우저에서
+            동작하지 않습니다 — 이 페이지는 소개/런처용입니다.)
+          </p>
+          <pre class="cmd">
+git add index.html
+git commit -m "Add index.html launcher"
+git push origin main</pre
+          >
+          <p class="note">
+            GitHub 저장소 설정 → Pages → Branch: <code>main</code> / Folder:
+            <code>/ (root)</code> 선택 후 Save 하시면 이 파일이 공개됩니다.
+          </p>
+        </div>
+
+        <div class="box">
+          <h3>리포지토리 리소스</h3>
+          <ul>
+            <li>게임 엔트리: <code>game.py</code></li>
+            <li>
+              맵 배경(옵션): <code>background.png</code> (프로젝트 루트 또는
+              <code>assets/backgrounds/background.png</code>)
+            </li>
+            <li>
+              포켓몬 스프라이트 폴더(옵션): <code>assets/pokemon/</code> (예:
+              <code>초염몽.png</code>, <code>꼬부기.jpg</code>)
+            </li>
+          </ul>
+          <h4>간단한 스크린샷</h4>
+          <img
+            class="screenshot"
+            alt="screenshot"
+            src="assets/backgrounds/background.png"
+            onerror="this.style.opacity=0.25;this.alt='(background.png not found)';"
+          />
+          <p class="note">
+            원하시면 이 페이지에 게임 GIF나 스크린샷을 추가해 더 보기 좋게 만들
+            수 있습니다.
+          </p>
+        </div>
+      </div>
+
+      <hr />
+      <p>
+        추가로 원하시면 제가 GitHub Pages용 스타일 개선(스플래시, 스크린샷/섹션
+        구성), 또는 WASM 빌드 안내(emscripten 설정 가이드)를 차례로
+        도와드릴게요.
+      </p>
+
+      <h3>브라우저 스트리밍 플레이(실험적)</h3>
+      <p class="note">
+        로컬에서 <code>python ws_server.py</code>를 실행한 후 이 페이지를 열고
+        연결하세요.
+      </p>
+      <p class="note">
+        (먼저: <code>pip install websockets pillow</code> 필요)
+      </p>
+      <canvas
+        id="gameCanvas"
+        width="800"
+        height="600"
+        style="border: 1px solid #ccc; display: block; margin: 12px 0"
+      ></canvas>
+      <script>
+        (function () {
+          const wsUrl = "ws://localhost:8765";
+          let ws = null;
+          const canvas = document.getElementById("gameCanvas");
+          const ctx = canvas.getContext("2d");
+
+          function connect() {
+            ws = new WebSocket(wsUrl);
+            ws.binaryType = "arraybuffer";
+            ws.onopen = () => console.log("ws open");
+            ws.onclose = () => {
+              console.log("ws closed");
+              setTimeout(connect, 1000);
+            };
+            ws.onerror = (e) => console.warn("ws error", e);
+            ws.onmessage = async (ev) => {
+              try {
+                const ab = ev.data;
+                const blob = new Blob([ab], { type: "image/png" });
+                const img = await createImageBitmap(blob);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              } catch (err) {
+                console.warn("frame draw err", err);
+              }
+            };
+          }
+
+          connect();
+
+          // forward key events to server
+          window.addEventListener("keydown", (e) => {
+            if (!ws || ws.readyState !== WebSocket.OPEN) return;
+            const payload = { type: "keydown", key: e.key };
+            ws.send(JSON.stringify(payload));
+            if (
+              ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", " "].includes(
+                e.key
+              )
+            )
+              e.preventDefault();
+          });
+          window.addEventListener("keyup", (e) => {
+            if (!ws || ws.readyState !== WebSocket.OPEN) return;
+            const payload = { type: "keyup", key: e.key };
+            ws.send(JSON.stringify(payload));
+          });
+        })();
+      </script>
+
+      <footer>
+        <div>파일 위치: <code>/index.html</code></div>
+        <div>로컬 실행 예시: Windows PowerShell에서 위 명령 실행</div>
+      </footer>
+    </div>
+  </body>
+</html>
