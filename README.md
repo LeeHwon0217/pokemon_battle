@@ -68,6 +68,6 @@ python game.py
 
 ---
 
-저장된 파일 및 핵심 변경 파일: `battle.py`, `scenes.py`, `base_pokemon.py`, `game.py`, `ws_server.py`, `index.html`.
+저장된 파일 및 핵심 변경 파일: `battle.py`, `scenes.py`, `base_pokemon.py`, `game.py`.
 
 문서나 실행 중 문제가 발생하면 오류 메시지를 붙여 알려주세요. 바로 도와드리겠습니다.
